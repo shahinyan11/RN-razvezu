@@ -1,0 +1,9 @@
+export const passportFrontMask = require('./_passportFront.png');
+export const passportBackMask = require('./_passportBack.png');
+export const selfieWithPassportMask = require('./_selfieWithPassport.png');
+export const selfieMask = require('./_selfie.png');
+export const driverLicenseFrontMask = require('./_driverLicenseFront.png');
+export const driverLicenseBackMask = require('./_driverLicenseBack.png');
+export const regiCertFrontMask = require('./_regiCertFront.png');
+export const regiCertBackMask = require('./_regiCertBack.png');
+export const carMask = require('./_car.png');

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "175866809092",
+    "project_id": "razvezu",
+    "storage_bucket": "razvezu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175866809092:android:3a2ec5233cc5be52af9e51",
+        "android_client_info": {
+          "package_name": "com.razvezu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175866809092-vo9vft5tpc3guc55qjses1gc41afcku5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgZ5GBfUurzMFJu7KkYgTKS785wydppjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175866809092-vo9vft5tpc3guc55qjses1gc41afcku5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

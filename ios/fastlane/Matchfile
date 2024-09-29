@@ -1,0 +1,13 @@
+git_url("https://arpkirill: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@github.com/arpkirill/razvezu-cert-fastlane")
+
+storage_mode("git")
+
+type("development") # The default type, can be: appstore, adhoc, enterprise or development
+
+app_identifier("com.razvezu")
+username("kirillchernakov86@gmail.com") # Your Apple Developer Portal username
+
+# For all available options run `fastlane match --help`
+# Remove the # in the beginning of the line to enable the other options
+
+# The docs are available on https://docs.fastlane.tools/actions/match

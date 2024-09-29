@@ -1,0 +1,9 @@
+export {default as IconBack} from './Back';
+export {default as IconDelete} from './Delete';
+export {default as IconRefresh} from './Refresh';
+export {default as IconSend} from './Send';
+export {default as IconRight} from './Right';
+export {default as IconNavigator} from './Navigator';
+export {default as IconCall} from './Call';
+export {default as IconTrash} from './Trash';
+export {default as IconClose} from './Close';

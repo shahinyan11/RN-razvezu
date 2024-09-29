@@ -1,0 +1,127 @@
+stages:
+  - app-center
+  - publish
+  - notify
+# - ios_test_flight
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+app_center:
+  allow_failure: true
+  stage: app-center
+  image: reactnativecommunity/react-native-android
+  script:
+    # Что-то тут однозначно лишнее, самые важные 4 строчки снизу
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+    - ls -lah .secure_files/my-upload-key.keystore
+    - yarn install
+    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+    - cp $PLAY_STORE_JSON android/app/play-store.json
+    - mv .secure_files/my-upload-key.keystore android/app/my-upload-key.keystore
+    - sed -i 's/org.gradle.jvmargs=-Xmx4608m -XX:MaxMetaspaceSize=512m/org.gradle.jvmargs=-Xmx4024m -XX:MaxMetaspaceSize=1024m/' android/gradle.properties
+    - cat android/gradle.properties
+    - npm install -g appcenter-cli
+    - appcenter login --token $APPCENTER_TOKEN
+    - appcenter codepush release-react -a Razvezu/razvezu-ios -d Production
+    - appcenter codepush release-react -a Razvezu/razvezu -d Production
+
+
+
+notify:
+  stage: notify
+  only:
+    - develop
+    - cicd
+  image: alpine:latest
+  script:
+    - 'apk --no-cache add curl'
+  # - curl -s -X POST https://api.telegram.org/bot6082225703:AAF1pDHZXS6-ZDRSzNVkRRNpnMEVmUVOUnc/sendMessage -d chat_id="-1001833123913" -d text="${CI_PROJECT_NAME} ${GITLAB_USER_EMAIL} ${CI_COMMIT_TITLE} BUILD ${BUILD_SUCCESS_ANDROID}";
+
+
+publish:android:apk:
+  stage: publish
+  allow_failure: true
+  only:
+    #   - develop
+    - cicd
+  image: reactnativecommunity/react-native-android
+  script:
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+    - ls -lah .secure_files/my-upload-key.keystore
+    - yarn install
+    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+    - cp $PLAY_STORE_JSON android/app/play-store.json
+    - mv .secure_files/my-upload-key.keystore android/app/my-upload-key.keystore
+    - sed -i 's/org.gradle.jvmargs=-Xmx4608m -XX:MaxMetaspaceSize=512m/org.gradle.jvmargs=-Xmx1024m -XX:MaxMetaspaceSize=512m/' android/gradle.properties
+    - cat android/gradle.properties
+    - yarn bundle
+    # - ls ./android/app/build/outputs/bundle/release/
+    # apk
+    - cd android && ./gradlew assembleRelease
+    # - ls android/app/build/outputs/apk/release
+    # - curl -X -F "document=@/builds/web-soft-llc/mobile-courier-app/android/app/build/outputs/apk/release/app-release.apk" -F chat_id="-1001833123913" https://api.telegram.org/bot6082225703:AAF1pDHZXS6-ZDRSzNVkRRNpnMEVmUVOUnc/sendDocument
+    # - curl -X POST  -i  -F "document=@/builds/web-soft-llc/mobile-courier-app/android/app/build/outputs/apk/release/app-release.apk" -F chat_id="-1001833123913" https://api.telegram.org/bot6082225703:AAF1pDHZXS6-ZDRSzNVkRRNpnMEVmUVOUnc/sendDocument
+    # - curl -X POST  -i  -F "document=@/android/app/build/outputs/apk/release/app-release.apk" -F chat_id="-1001833123913" https://api.telegram.org/bot6082225703:AAF1pDHZXS6-ZDRSzNVkRRNpnMEVmUVOUnc/sendDocument
+  #  - curl -X -F "document=@/android/app/build/outputs/apk/release/app-release.apk" -F chat_id="-1001833123913" https://api.telegram.org/bot6082225703:AAF1pDHZXS6-ZDRSzNVkRRNpnMEVmUVOUnc/sendDocument
+
+publish:android:package:
+  stage: publish
+  allow_failure: true
+  only:
+    - develop
+    - cicd
+  image: reactnativecommunity/react-native-android
+  script:
+    - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
+    - ls -lah .secure_files/my-upload-key.keystore
+    - yarn install
+    - echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
+    - cp $PLAY_STORE_JSON android/app/play-store.json
+    - mv .secure_files/my-upload-key.keystore android/app/my-upload-key.keystore
+    - sed -i 's/org.gradle.jvmargs=-Xmx4608m -XX:MaxMetaspaceSize=512m/org.gradle.jvmargs=-Xmx1024m -XX:MaxMetaspaceSize=512m/' android/gradle.properties
+    - cat android/gradle.properties 
+    - yarn bundle
+    - yarn publish-package --no-daemon
+    - echo "my build step 1" |tee -a my-job.log
+    - echo "my build step 2" |tee -a my-job.log
+  tags:
+    - saas-linux-medium-amd64 # saas-linux-medium-amd64 # android  
+  artifacts:
+    paths:
+      - my-job.log
+      - ./android/app/build/outputs/
+      - ./android/app/build/outputs/apk/release/app-release.apk
+      - ./android/app/build/outputs/apk/bundle/app-release.aab
+  after_script:
+    - if [ $? -ne 0 ]; then
+      echo "BUILD_SUCCESS_ANDROID=false" >> $CI_ENVIRONMENT_NAME.env;
+      else
+      echo "BUILD_SUCCESS_ANDROID=true" >> $CI_ENVIRONMENT_NAME.env;
+      fi
+
+
+publish:apple:ipa:
+  dependencies: [ ]
+  stage: publish
+  allow_failure: true
+  before_script:
+    - gem install bundler
+    - bundle install
+    - yarn install
+    - yarn postinstall
+  artifacts:
+    paths:
+      - ios/fastlane/screenshots
+      - ios/fastlane/logs
+  script:
+    - cp $FASTLANE_APPLE_ENV ios/fastlane/.env.default
+    - cd ios
+    - pod deintegrate
+    - pod install
+    - fastlane ios beta
+  tags:
+    - local_mac
+  only:
+    - develop

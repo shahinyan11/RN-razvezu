@@ -1,0 +1,14 @@
+export {default as IconArrowRight} from './ArrowRight';
+export {default as IconSearch} from './Search';
+export {default as IconLoader} from './Loader';
+export {default as IconLink} from './Link';
+export {default as IconFileMessage} from './FileMessage';
+export {default as IconDepot} from './Depot';
+export {default as IconRefill} from './Refill';
+export {default as IconWithdrawal} from './Withdrawal';
+export {default as IconPassport} from './Passport';
+export {default as IconCard} from './Card';
+export {default as IconWallet} from './Wallet';
+export {default as IconCalendar} from './Calendar';
+export {default as IconError} from './Error';
+export {default as IconWiFi} from './WiFi';

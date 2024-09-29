@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-webview/android/build.gradle b/node_modules/react-native-webview/android/build.gradle
+index 3e0dcbc..2f13ae9 100644
+--- a/node_modules/react-native-webview/android/build.gradle
++++ b/node_modules/react-native-webview/android/build.gradle
+@@ -9,7 +9,7 @@ buildscript {
+         gradlePluginPortal()
+     }
+     dependencies {
+-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${safeExtGet('kotlinVersion')}")
++        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20")
+         classpath("com.android.tools.build:gradle:7.0.4")
+     }
+ }

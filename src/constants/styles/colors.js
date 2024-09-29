@@ -1,0 +1,48 @@
+export const MAIN_COLORS = {
+  WHITE: 'rgba(255, 255, 255, 1)',
+  WHITE_085: 'rgba(255, 255, 255, 0.85)',
+  WHITE_01: 'rgba(255, 255, 255, 0.1)',
+  WHITE_0: 'rgba(255, 255, 255, 0)',
+  WHITE_244: 'rgba(244, 244, 244, 1)',
+  WHITE_200: 'rgba(180, 180, 180, 1)',
+  WHITE_232_035: 'rgba(232, 232, 232, 0.35)',
+  WHITE_232: 'rgba(232, 232, 232, 1)',
+  BLACK: 'rgba(0, 0, 0, 1)',
+  BLACK_05: 'rgba(0, 0, 0, 0.5)',
+  BLACK_02: 'rgba(0, 0, 0, 0.2)',
+  BLACK_08: 'rgba(0, 0, 0, 0.8)',
+  BLACK_36_08: 'rgba(0, 0, 0, 0.8)',
+  DARK: 'rgba(27, 39, 51, 1)',
+  GREY_217: 'rgba(217, 217, 217, 1)',
+  GREY_158: 'rgba(158, 158, 158, 1)',
+  GREY_40: 'rgba(40, 40, 40, 1)',
+  GREY_40_01: 'rgba(40, 40, 40, 0.1)',
+  GREY_BTN: 'rgba(179, 178, 184, 1)',
+  GREY_BTN_03: 'rgba(179, 178, 184, 0.3)',
+  RED: 'rgba(239, 141, 128, 1)',
+  YELLOW: 'rgba(255, 194, 88, 1)',
+  GREEN: 'rgba(40, 180, 70, 1)',
+  BLUE: '#0073f8',
+};
+
+export const TEXT_COLORS = {
+  WHITE: 'rgba(255, 255, 255, 1)',
+  WHITE_05: 'rgba(255, 255, 255, 0.5)',
+  WHITE_075: 'rgba(255, 255, 255, 0.75)',
+  BLACK: 'rgba(0, 0, 0, 1)',
+  BLACK_05: 'rgba(0, 0, 0, 0.5)',
+  BLACK_075: 'rgba(0, 0, 0, 075)',
+  GREY_BTN: 'rgba(179, 178, 184, 1)',
+  GREY_158: 'rgba(158, 158, 158, 1)',
+  GREEN: 'rgba(40, 180, 70, 1)',
+  ORANGE: 'rgba(232, 132, 16, 1)',
+  RED: 'rgba(237, 0, 0, 1)',
+};
+
+export const BUTTON_COLORS = {
+  BLACK: 'rgba(0, 0, 0, 1)',
+  WHITE: 'rgba(255, 255,255, 1)',
+  DISABLED: 'rgba(234, 234, 234, 1)',
+  GREY_BTN: 'rgba(179, 178, 184, 1)',
+  GREEN: 'rgba(82, 193, 80, 1)',
+};
